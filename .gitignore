@@ -22,6 +22,10 @@ xml/
 
 *.zip
 
+# Sniffer
+Sniffer/pthreads-win32-2-9-1-release/
+Sniffer/WinPcap/
+
 ### C++ ###
 # Prerequisites
 *.d
