@@ -81,27 +81,28 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>Sniffer\pthreads-win32-2-9-1-release\include;Sniffer\WinPcap\WpdPack\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Projects\pthreads-w32-2-9-1-release\Pre-built.2\include;C:\Projects\WpdPack_4_1_2\Include;C:\Projects\boost_1_66_0;$(IncludePath)</IncludePath>
     <CodeAnalysisRuleSet>MixedRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_dll|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files (x86)\WinPcap\WpdPack\Include;C:\Program Files (x86)\libtins\include;C:\pthreads-w32-2-9-1-release\Pre-built.2\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_PATH);C:\Program Files (x86)\WinPcap\WpdPack\Include;C:\Program Files (x86)\libtins\include;C:\pthreads-w32-2-9-1-release\Pre-built.2\include;$(IncludePath)</IncludePath>
     <CodeAnalysisRuleSet>MixedRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug10|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files (x86)\WinPcap\WpdPack\Include;C:\Program Files (x86)\libtins\include;C:\pthreads-w32-2-9-1-release\Pre-built.2\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_PATH);C:\Program Files (x86)\WinPcap\WpdPack\Include;C:\Program Files (x86)\libtins\include;C:\pthreads-w32-2-9-1-release\Pre-built.2\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>Sniffer\pthreads-win32-2-9-1-release\include;Sniffer\WinPcap\WpdPack\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Projects\pthreads-w32-2-9-1-release\Pre-built.2\include;C:\Projects\WpdPack_4_1_2\Include;C:\Projects\boost_1_66_0;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release10|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>pthreads-win32-2-9-1-release\include;WinPcap\WpdPack\Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_PATH);pthreads-win32-2-9-1-release\include;WinPcap\WpdPack\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -109,16 +110,16 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>BOOST_CB_DISABLE_DEBUG;_SCL_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;HAVE_REMOTE;WIN32;_DEBUG;_CONSOLE;_LIB;_WINDOWS;NOMINMAX;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;WIN32;_LIB;_CONSOLE;BOOST_CB_DISABLE_DEBUG;_WINSOCK_DEPRECATED_NO_WARNINGS;HAVE_REMOTE;_DEBUG;_WINDOWS;NOMINMAX;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <BrowseInformation>true</BrowseInformation>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\boost\boost_1_58_0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Debug\Sniffer.lib;Sniffer\WinPcap\WpdPack\Lib\wpcap.lib;Iphlpapi.lib;ws2_32.lib;Sniffer\pthreads-win32-2-9-1-release\lib\x86\pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Debug\Sniffer.lib;C:\Projects\WpdPack_4_1_2\Lib\wpcap.lib;C:\Projects\pthreads-w32-2-9-1-release\Pre-built.2\lib\x86\pthreadVC2.lib;Iphlpapi.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\boost\boost_1_58_0\lib32-msvc-12.0</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
@@ -134,7 +135,7 @@
       <PreprocessorDefinitions>HAVE_REMOTE;WIN32;_DEBUG;_CONSOLE;_LIB;_WINDOWS;_CRT_SECURE_NO_WARNINGS=1;_SCL_SECURE_NO_WARNINGS=1;NOMINMAX;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <BrowseInformation>true</BrowseInformation>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\boost\boost_1_58_0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Projects\boost_1_66_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
@@ -156,6 +157,7 @@
       <PreprocessorDefinitions>HAVE_REMOTE;WIN32;_DEBUG;_CONSOLE;_LIB;_WINDOWS;_CRT_SECURE_NO_WARNINGS=1;_SCL_SECURE_NO_WARNINGS=1;NOMINMAX;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <BrowseInformation>true</BrowseInformation>
+      <AdditionalIncludeDirectories>C:\Projects\boost_1_66_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -174,9 +176,9 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>BOOST_CB_DISABLE_DEBUG;_SCL_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;WIN32;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;WIN32;_CONSOLE;_LIB;BOOST_CB_DISABLE_DEBUG;_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\boost\boost_1_58_0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Projects\boost_1_66_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
@@ -184,7 +186,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>IPHLPAPI.lib;Ws2_32.lib;Sniffer\WinPcap\WpdPack\Lib\wpcap.lib;Sniffer\pthreads-win32-2-9-1-release\lib\x86\pthreadVC2.lib;Release\Sniffer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Release\Sniffer.lib;C:\Projects\WpdPack_4_1_2\Lib\wpcap.lib;C:\Projects\pthreads-w32-2-9-1-release\Pre-built.2\lib\x86\pthreadVC2.lib;Iphlpapi.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
@@ -200,6 +204,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_WINSOCK_DEPRECATED_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Projects\boost_1_66_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
