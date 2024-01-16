@@ -1,0 +1,8 @@
+C:\Users\gabri\OneDrive\Desktop\NETLAB\NetlabTAU\Release\NetlabTAU.vcxproj.CopyComplete
+C:\Users\gabri\OneDrive\Desktop\NETLAB\NetlabTAU\Release\gtest.pdb
+C:\Users\gabri\OneDrive\Desktop\NETLAB\NetlabTAU\Release\gtest_main.pdb
+C:\Users\gabri\OneDrive\Desktop\NETLAB\NetlabTAU\Release\NetlabTAU.exe
+C:\Users\gabri\OneDrive\Desktop\netlab\netlab\Release\NetlabTAU.vcxproj.CopyComplete
+C:\Users\gabri\OneDrive\Desktop\netlab\netlab\Release\netlab.exe
+C:\Users\gabri\OneDrive\Desktop\netlab\netlab\Release\gtest.pdb
+C:\Users\gabri\OneDrive\Desktop\netlab\netlab\Release\gtest_main.pdb
