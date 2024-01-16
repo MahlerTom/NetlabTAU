@@ -1,0 +1,4 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\Microsoft.Common.CurrentVersion.targets(2146,5): warning : The referenced project '..\netlab\Solution Items{38B398D3-3824-4CBB-8FC0-9BF67CCC38B8}' does not exist.
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (netlab.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+NetlabTAU.lib(L5_Sol.obj) : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
+  netlab_testing.vcxproj -> C:\Users\gabri\OneDrive\Desktop\NetlabTAU\netlab\Debug\netlab_testing.exe
