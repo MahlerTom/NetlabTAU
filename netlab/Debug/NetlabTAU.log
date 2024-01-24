@@ -1,27 +1,11 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (netlab.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  AddressRange.cpp
-C:\Users\gabri\OneDrive\Desktop\NetlabTAU\netlab\AddressRange.cpp(51,109): warning C5037: 'netlab::AddressRange<Address>::AddressRange': an out-of-line definition of a member of a class template cannot have default arguments
-  CatchMemoryLeak.cpp
-  inet_os.cpp
-  IPv4Address.cpp
-  L2_ARP_impl.cpp
-  L2_impl.cpp
+﻿  L2_impl.cpp
   L3_impl.cpp
-  L4_ICMP_Sol.cpp
-  L4_TCP_Sol.cpp
   L5_Sol.cpp
   main.cpp
   main2.cpp
   NetworkInterface.cpp
-  NIC.cpp
-  NIC_Cable.cpp
   packet_sender_adapter.cpp
   pcb.cpp
-  Print.cpp
-  protosw.cpp
-  L0_buffer.cpp
-  Generating Code...
-  Compiling...
   utils.cpp
   Generating Code...
-  NetlabTAU.vcxproj -> C:\Users\gabri\OneDrive\Desktop\NetlabTAU\netlab\Debug\NetlabTAU.lib
+  NetlabTAU.vcxproj -> C:\Users\niv\NetlabTAU\netlab\Debug\NetlabTAU.lib
