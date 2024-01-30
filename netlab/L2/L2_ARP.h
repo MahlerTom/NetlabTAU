@@ -1,7 +1,9 @@
 #ifndef L2_ARP_H_
 #define L2_ARP_H_
-#include "../L1/NIC.h"
-#include "../infra/inet_os.hpp"
+#include "L1/NIC.h"
+#include "infra/inet_os.hpp"
+#include "gtest/gtest.h"
+#include "../netlab_testing/pch.h"
 
 /*!
     \class	L2_ARP
@@ -223,6 +225,8 @@ protected:
 private:
 	unsigned long	arp_maxtries;   /*!< The arp max tries before resend, default is 10 (once declared down, don't send for 10 secs). */
 	unsigned int	arpt_down;		/*!< The arp timeout for an entry. */
+
+	FRIEND_TEST(newTests, arpTest);
 };
 
 /************************************************************************/
@@ -526,7 +530,7 @@ public:
 private:
 	enum time_stamp
 	{
-		MAX_TIME_STAMP = 1500000	/*!<	25 minutes	*/
+		MAX_TIME_STAMP = 10000	/*!<	25 minutes	*/
 	}; 
 
 	mac_addr							la_mac;		/*!< The la MAC address */
