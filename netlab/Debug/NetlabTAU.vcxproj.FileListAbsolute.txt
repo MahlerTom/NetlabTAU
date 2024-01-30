@@ -1,7 +1,1 @@
-C:\Users\gabri\OneDrive\Desktop\NETLAB\NetlabTAU\Debug\NetlabTAU.vcxproj.CopyComplete
-C:\Users\gabri\OneDrive\Desktop\NETLAB\NetlabTAU\Debug\gtest.pdb
-C:\Users\gabri\OneDrive\Desktop\NETLAB\NetlabTAU\Debug\gtest_main.pdb
-C:\Users\gabri\OneDrive\Desktop\NETLAB\NetlabTAU\Debug\NetlabTAU.lib
-C:\Users\gabri\OneDrive\Desktop\netlab\netlab\Debug\NetlabTAU.lib
-C:\Users\gabri\OneDrive\Desktop\netlab\netlab_code\Debug\NetlabTAU.lib
-C:\Users\gabri\OneDrive\Desktop\NetlabTAU\netlab\Debug\NetlabTAU.lib
+C:\Users\niv\NetlabTAU\netlab\Debug\NetlabTAU.lib

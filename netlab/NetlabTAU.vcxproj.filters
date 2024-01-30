@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NIC.cpp">
+    <ClCompile Include="L1\NIC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main2.cpp">
@@ -24,126 +24,126 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NIC_Cable.cpp">
+    <ClCompile Include="L1\NIC_Cable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="packet_sender_adapter.cpp">
+    <ClCompile Include="infra\packet_sender_adapter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="L4_ICMP_Sol.cpp">
+    <ClCompile Include="L4\L4_ICMP_Sol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="L4_TCP_Sol.cpp">
+    <ClCompile Include="L5\L4_TCP_Sol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="L5_Sol.cpp">
+    <ClCompile Include="L5\L5_Sol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pcb.cpp">
+    <ClCompile Include="infra\pcb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="inet_os.cpp">
+    <ClCompile Include="infra\inet_os.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Print.cpp">
+    <ClCompile Include="infra\Print.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CatchMemoryLeak.cpp">
+    <ClCompile Include="infra\CatchMemoryLeak.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IPv4Address.cpp">
+    <ClCompile Include="infra\IPv4Address.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AddressRange.cpp">
+    <ClCompile Include="infra\AddressRange.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NetworkInterface.cpp">
+    <ClCompile Include="infra\NetworkInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utils.cpp">
+    <ClCompile Include="infra\utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="L2_impl.cpp">
+    <ClCompile Include="L2\L2_impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="protosw.cpp">
+    <ClCompile Include="infra\protosw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="L3_impl.cpp">
+    <ClCompile Include="L3\L3_impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="L2_ARP_impl.cpp">
+    <ClCompile Include="L2\L2_ARP_impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="L0_buffer.cpp">
+    <ClCompile Include="L0\L0_buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="NIC.h">
+    <ClInclude Include="L1\NIC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Print.h">
+    <ClInclude Include="infra\Print.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="L3.h">
+    <ClInclude Include="L3\L3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="L4.h">
+    <ClInclude Include="L4\L4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="L2.h">
+    <ClInclude Include="L2\L2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NIC_Cable.h">
+    <ClInclude Include="L1\NIC_Cable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="packet_sender_adapter.h">
+    <ClInclude Include="infra\packet_sender_adapter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CatchMemoryLeak.h">
+    <ClInclude Include="infra\CatchMemoryLeak.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="L5.h">
+    <ClInclude Include="L5\L5.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="L4_TCP.h">
+    <ClInclude Include="L4\L4_TCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="pcb.h">
+    <ClInclude Include="infra\pcb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IPv4Address.h">
+    <ClInclude Include="infra\IPv4Address.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AddressRange.h">
+    <ClInclude Include="infra\AddressRange.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkInterface.h">
+    <ClInclude Include="infra\NetworkInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="utils.h">
+    <ClInclude Include="infra\utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HWAddress.hpp">
+    <ClInclude Include="infra\HWAddress.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="protosw.hpp">
+    <ClInclude Include="infra\protosw.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="domain.hpp">
+    <ClInclude Include="infra\domain.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inet_os.hpp">
+    <ClInclude Include="infra\inet_os.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="L2_ARP.h">
+    <ClInclude Include="L2\L2_ARP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="L0_buffer.h">
+    <ClInclude Include="L0\L0_buffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
