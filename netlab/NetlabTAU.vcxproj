@@ -82,7 +82,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Projects\pthreads-w32-2-9-1-release\Pre-built.2\include;C:\Projects\WpdPack_4_1_2\WpdPack\Include;C:\Projects\boost_1_83_0;C:\Windows\System32;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Projects\pthreads-w32-2-9-1-release\Pre-built.2\include;C:\Projects\WpdPack_4_1_2\WpdPack\Include;C:\Projects\boost_1_83_0;C:\googletest-1.14.0\googletest\include;$(IncludePath)</IncludePath>
     <CodeAnalysisRuleSet>MixedRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <ExecutablePath>C:\Windows\System32;$(ExecutablePath)</ExecutablePath>
@@ -227,6 +227,7 @@
     <ClCompile Include="L2\L2_impl.cpp" />
     <ClCompile Include="L3\L3_impl.cpp" />
     <ClCompile Include="L4\L4_ICMP_Sol.cpp" />
+    <ClCompile Include="L4\L4_UDP_Impl.cpp" />
     <ClCompile Include="L5\L4_TCP_Sol.cpp" />
     <ClCompile Include="L5\L5_Sol.cpp" />
     <ClCompile Include="main.cpp" />
@@ -254,6 +255,8 @@
     <ClInclude Include="L0\L0_buffer.h" />
     <ClInclude Include="L4\L4.h" />
     <ClInclude Include="L4\L4_TCP.h" />
+    <ClInclude Include="L4\L4_UDP.hpp" />
+    <ClInclude Include="L4\L4_UDP_Impl.hpp" />
     <ClInclude Include="L5\L5.h" />
     <ClInclude Include="infra\NetworkInterface.h" />
     <ClInclude Include="L1\NIC.h" />

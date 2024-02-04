@@ -22,6 +22,7 @@
 
 #include "../L3/L3.h"
 #include "../infra/pcb.h"
+#include "L4_UDP_Impl.hpp"
 
 /*
 * User-settable options (used with setsockopt).
@@ -559,6 +560,7 @@ class L4_TCP::tcpcb
 	: public inpcb_impl 
 {
 	friend class L4_TCP_impl;
+
 private:
 	/*!
 	    \enum	TCPS_
@@ -960,6 +962,7 @@ private:
 */
 class L4_TCP_impl : public L4_TCP
 {
+	friend class L4_UDP_Impl;
 public:
 	/*!
 		\typedef	class netlab::socket socket

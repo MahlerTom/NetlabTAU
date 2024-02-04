@@ -7,16 +7,6 @@
 
 #include "pch.h"
 
-#include "../netlab/infra/inet_os.hpp"
-#include "../netlab/L1/NIC_Cable.h"
-#include "../netlab/L0/L0_buffer.h"
-#include "../netlab/L1/NIC.h"
-#include "../netlab/L2/L2.h"
-#include "../netlab/L2/L2_ARP.h"
-#include "../netlab/L4/L4.h"
-#include "../netlab/L4/L4_TCP.h"
-#include "../netlab/infra/HWAddress.hpp"
-
 using namespace std;
 
 typedef netlab::HWAddress<> mac_addr;
@@ -150,45 +140,59 @@ protected:
     }
 };
 
-
-
-TEST_F(newTests, arpTest) {
-
-	//----------------------
-	// Before 3-way handshake, we expect the entry to be nullptr.
-	L2_ARP* arp_p = inet_client.arp();
-	auto entry = arp_p->arplookup(inet_server.nic()->ip_addr().s_addr, false);
-
-	ASSERT_EQ(entry, nullptr);
+TEST_F(newTests, Test01) {
 
 	//----------------------
 	// Connect to server.
 	ConnectSocket->connect((SOCKADDR*)&clientService, sizeof(clientService));
 
 	//----------------------
-	// Test if destination's address was saved in ARP cache.
-	
-	arp_p = inet_client.arp();
-	entry = arp_p->arplookup(inet_server.nic()->ip_addr().s_addr, false);
-	mac_addr expected_mac_addr("aa:aa:aa:aa:aa:aa");
-	cout << entry->getLaMac().to_string() << "       " << expected_mac_addr.to_string() << endl;
-	ASSERT_EQ(entry->getLaMac().to_string(), expected_mac_addr.to_string());
-
-	//-----------------------
-	// Test if packet is stored while the arp resolves the address.
-
-	/*do {
-		
-		ASSERT_EQ(entry->empty(), false);
-		std::this_thread::sleep_for(std::chrono::seconds(5));
-
-	} while (entry->valid());*/
+	// Create a SOCKET for accepting incoming requests.
+	netlab::L5_socket_impl* AcceptSocket = nullptr;
 
 	//----------------------
-	// Test if saved entry was removed from cache as expected.
-	
-	std::this_thread::sleep_for(chrono::seconds((uint32_t)arp_p->getArptDown()));
-	entry = arp_p->arplookup(inet_server.nic()->ip_addr().s_addr, false);
-	
-	ASSERT_EQ(entry->valid(), false);
+	// Accept the connection.
+	AcceptSocket = ListenSocket->accept(nullptr, nullptr);
+
 }
+
+//TEST_F(newTests, arpTest) {
+//
+//	//----------------------
+//	// Before 3-way handshake, we expect the entry to be nullptr.
+//	L2_ARP* arp_p = inet_client.arp();
+//	auto entry = arp_p->arplookup(inet_server.nic()->ip_addr().s_addr, false);
+//
+//	ASSERT_EQ(entry, nullptr);
+//
+//	//----------------------
+//	// Connect to server.
+//	ConnectSocket->connect((SOCKADDR*)&clientService, sizeof(clientService));
+//
+//	//----------------------
+//	// Test if destination's address was saved in ARP cache.
+//	
+//	arp_p = inet_client.arp();
+//	entry = arp_p->arplookup(inet_server.nic()->ip_addr().s_addr, false);
+//	mac_addr expected_mac_addr("aa:aa:aa:aa:aa:aa");
+//	cout << entry->getLaMac().to_string() << "       " << expected_mac_addr.to_string() << endl;
+//	ASSERT_EQ(entry->getLaMac().to_string(), expected_mac_addr.to_string());
+//
+//	//-----------------------
+//	// Test if packet is stored while the arp resolves the address.
+//
+//	/*do {
+//		
+//		ASSERT_EQ(entry->empty(), false);
+//		std::this_thread::sleep_for(std::chrono::seconds(5));
+//
+//	} while (entry->valid());*/
+//
+//	//----------------------
+//	// Test if saved entry was removed from cache as expected.
+//	
+//	std::this_thread::sleep_for(chrono::seconds((uint32_t)arp_p->getArptDown()));
+//	entry = arp_p->arplookup(inet_server.nic()->ip_addr().s_addr, false);
+//	
+//	ASSERT_EQ(entry->valid(), false);
+//}

@@ -504,8 +504,14 @@ namespace netlab
 	{
 		if (chunk == 0)
 			chunk = uio_resid;
-		/* We only do stream sockets. */
-		if (so_type != SOCK_STREAM)
+		if (so_type == SOCK_DGRAM) { // UDP simple socket for datagrams.
+
+			lock so_rcv_lock(so_rcv.sb_process_mutex);
+			if (so_rcv.size() > 0) {
+				chunk = so_rcv.size();
+			}
+		}
+		else if (so_type != SOCK_STREAM || so_type != SOCK_DGRAM)
 			throw std::runtime_error("soreceive_stream failed with error: EINVAL = " + std::to_string(EINVAL));
 		else if (flags & MSG_OOB)
 			throw std::runtime_error("OOB not supported.");

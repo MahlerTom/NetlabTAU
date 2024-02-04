@@ -126,6 +126,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="UDPTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\netlab\NetlabTAU.vcxproj">

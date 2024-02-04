@@ -3,7 +3,8 @@
 
 #pragma once
 
-#include "L3.h"
+#include "../L3/L3.h"
+#include "../infra/pcb.h"
 
 class L4_UDP : public protosw {
 public:
@@ -33,9 +34,14 @@ public:
 		\param [in,out]	inet	The inet.
 	*/
 
-	L4_UDP(class inet_os& inet);
+	/*!
+		\class	udpcb
 
-		//protosw(inet, SOCK_DGRAM, NULL, IPPROTO_UDP) { } 
+		\brief	UDP control block, one per UDP.
+	*/
+	class udpcb;
+
+	L4_UDP(class inet_os& inet);
 
 	/*!
 		\pure	virtual void L4_UDP::pr_init() = 0;
@@ -80,6 +86,123 @@ public:
 
 	virtual int pr_usrreq(class netlab::L5_socket* so, int req, std::shared_ptr<std::vector<byte>>& m,
 		struct sockaddr* nam, size_t nam_len, std::shared_ptr<std::vector<byte>>& control) = 0;
+
+
+private:
+
+	/* Unused - protosw virtual functions */
+	virtual void pr_drain() { }
+	virtual void pr_fasttimo() { }
+	virtual void pr_slowtimo() { }
+	virtual int pr_sysctl() { return 0; }
+	virtual void pr_ctlinput() { }
+	virtual int pr_ctloutput() { return 0; }
+
+};
+
+class L4_UDP::udpcb : public inpcb_impl {
+
+	friend class L4_UDP_Impl;
+
+private:
+
+	/*!
+		\fn	explicit L4_UDP::udpcb::udpcb(inet_os &inet)
+
+		\brief	Constructor.
+
+		\param [in,out]	inet	The inet.
+	*/
+
+	explicit udpcb(inet_os& inet);
+
+	/*!
+		\fn	L4_UDP::udpcb::udpcb(socket &so, inpcb_impl &head);
+
+		\brief
+		Create a new UDP control block, making an empty reassembly queue and hooking it to the
+		argument protocol control block.
+
+		\param [in,out]	so  	The so.
+		\param [in,out]	head	The head.
+	*/
+
+	udpcb(socket& so, inpcb_impl& head);
+
+	~udpcb();
+
+	/*!
+		\fn	static inline udpcb* L4_UDP::udpcb::intoudpcb(inpcb_impl *ip)
+
+		\brief	A udpcb* caster from inpcb_impl.
+
+		\param [in,out]	ip	If non-null, the inpcb_impl to cast.
+
+		\return	null if it fails, else a udpcb* casted version of #ip.
+	*/
+	static inline class L4_UDP::udpcb* intoudpcb(class inpcb_impl* ip);
+	static inline class L4_UDP::udpcb* intoudpcb(class inpcb* ip);
+
+	/*!
+		\fn	static inline udpcb* L4_UDP::udpcb::sotoudpcb(socket *so)
+
+		\brief	A udpcb* caster from socket.
+
+		\param [in,out]	so	If non-null, the socket to cast.
+
+		\return	null if it fails, else a udpcb* casted version of the #so pcb.
+	*/
+	static inline class L4_UDP::udpcb* sotoudpcb(socket* so);
+
+	/*!
+		\fn virtual udpcb * in_pcblookup(struct in_addr faddr, u_int fport_arg, struct in_addr laddr, u_int lport_arg, int flags)
+
+		\brief	Calls inpcb_impl::in_pcblookup();
+
+		\param	faddr	 	The foreign host table entry.
+		\param	fport_arg	The foreign port.
+		\param	laddr	 	The local host table entry.
+		\param	lport_arg	The local port.
+		\param	flags	 	The flags \ref INPLOOKUP_.
+
+		\return	null if it fails, else the matching inpcb.
+	*/
+	virtual class L4_UDP::udpcb* in_pcblookup(struct in_addr faddr, u_int fport_arg, struct in_addr laddr, u_int lport_arg, int flags);
+
+	/*!
+		\fn	void L4_UDP::udpcb::udp_template()
+
+		\brief
+		Create template to be used to send UDP packets on a connection. Call after host entry
+		created, allocates an mbuf and fills in a skeletal UDP/IP header, minimizing the amount
+		of work necessary when the connection is used.
+	*/
+	void udp_template();
+
+
+	struct	pseudo_header* udp_ip_template;	/*!< skeletal packet for transmit */
+	class	inpcb_impl* udp_inpcb;	/*!< back pointer to internet pcb */
+
+	class udpcb_logger {
+		friend class L4_UDP::udpcb;
+	public:
+		~udpcb_logger() { log.close(); }
+	private:
+		typedef std::chrono::duration<double> seconds;
+		udpcb_logger();
+		udpcb_logger(const udpcb_logger&)
+		{
+			//udpcb_logger();
+		}
+
+		void update(u_long snd_cwnd);
+
+		std::ofstream log;
+		std::chrono::time_point<std::chrono::high_resolution_clock> start;
+		static int log_number;
+	};
+
+	udpcb_logger log;
 };
 
 //#endif
