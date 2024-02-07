@@ -185,7 +185,6 @@ int L4_UDP_Impl::pr_usrreq(class netlab::L5_socket* so, int req, std::shared_ptr
 			error = EISCONN;
 			break;
 		}
-		so->so_pcb.
 		class L4_UDP::udpcb* up = L4_UDP::udpcb::sotoudpcb(dynamic_cast<socket*>(so));
 		break;
 	}
@@ -228,55 +227,4 @@ void L4_UDP_Impl::drop(class inpcb_impl* inp, const int dropsocket) {
 int L4_UDP_Impl::out(L4_UDP::udpcb& up, int error)
 {
 	return (error);
-}
-
-
-int L4_UDP_Impl::udp_attach(socket& so)
-{
-	/*
-	 *	Allocate space for send buffer and receive buffer:
-	 *	If space has not been allocated for the socket's send and receive buffers,
-	 *	sbreserve sets them both to 8192, the default values of the global variables
-	 *	tcp_sendspace and tcp_recvspace (Figure 24.3).
-	 *	Whether these defaults are adequate depends on the MSS for each direction of the connection,
-	 *	which depends on the MTU. For example, [Comer and Lin 1994] show that anomalous behavior
-	 *	occurs if the send buffer is less than three times the MSS, which drastically reduces performance.
-	 *	Some implementations have much higher defaults, such as 61,444 bytes, realizing the
-	 *	effect these defaults have on performance, especially with higher MTUs (e.g., FOOi and ATM).
-	 */
-	int error;
-	if ((dynamic_cast<socket*>(&so)->so_snd.capacity() == 0 || dynamic_cast<socket*>(&so)->so_rcv.capacity() == 0) &&
-		(error = dynamic_cast<socket*>(&so)->soreserve(10000, 10000)))
-		return (error);
-
-	/*
-	 *	Allocate Internet PCB and TCP control block:
-	 *	inpcb allocates an Internet PCB and tcp_newtcpcb allocates a TCP control
-	 *	block and links it to the PCB.
-	 */
-	class L4_UDP::udpcb* up(tcp_newtcpcb(*dynamic_cast<socket*>(&so)));
-
-	/*
-	 *	The code with the comment xxx is executed if the allocation in
-	 *	tcp_newtcpcb fails. Remember that the PRU_ATTACH request is issued as a result of
-	 *	the socket system call, and when a connection request arrives for a listening socket
-	 *	(sonewconn). In the latter case the socket flag SS_NOFDREF is set. If this flag is left on,
-	 *	the call to sofree by in_pcbdetach releases the socket structure. As we saw in
-	 *	tcp_input, this structure should not be released until that function is done with the
-	 *	received segment (the dropsocket flag in Figure 29.27). Therefore the current value of
-	 *	the SS_NOFDREF flag is saved in the variable nofd when in_pcbdetach is called, and
-	 *	reset before tcp_attach returns.
-	 */
-	if (tp == nullptr) {
-		const int nofd(so.so_state & socket::SS_NOFDREF);	/* XXX */
-		so.so_state &= ~socket::SS_NOFDREF;	/* don't free the socket yet */
-		so.so_state |= nofd;
-		return (ENOBUFS);
-	}
-
-	/*
-	 *	The TCP connection state is initialized to CLOSED.
-	 */
-	tp->t_state = L4_TCP::tcpcb::TCPS_CLOSED;
-	return (0);
 }

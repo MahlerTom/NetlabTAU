@@ -125,8 +125,6 @@ public:
 
 	static inline int out(udpcb& up, int error);
 
-	inline int udp_attach(socket& so);
-
 	/*!
 		\pure	virtual int L4_UDP::pr_output(const struct pr_output_args &args) override;
 

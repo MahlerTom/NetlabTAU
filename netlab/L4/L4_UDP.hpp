@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "../L2/L2.h"
 #include "../L3/L3.h"
 #include "../infra/pcb.h"
 
@@ -129,7 +130,7 @@ private:
 
 	udpcb(socket& so, inpcb_impl& head);
 
-	~udpcb();
+	~udpcb() {};
 
 	/*!
 		\fn	static inline udpcb* L4_UDP::udpcb::intoudpcb(inpcb_impl *ip)
@@ -152,7 +153,9 @@ private:
 
 		\return	null if it fails, else a udpcb* casted version of the #so pcb.
 	*/
-	static inline class L4_UDP::udpcb* sotoudpcb(socket* so);
+	static inline class L4_UDP::udpcb* sotoudpcb(socket* so) {
+		return dynamic_cast<L4_UDP::udpcb*>(so->so_pcb);
+	} // TODO
 
 	/*!
 		\fn virtual udpcb * in_pcblookup(struct in_addr faddr, u_int fport_arg, struct in_addr laddr, u_int lport_arg, int flags)
@@ -167,7 +170,7 @@ private:
 
 		\return	null if it fails, else the matching inpcb.
 	*/
-	virtual class L4_UDP::udpcb* in_pcblookup(struct in_addr faddr, u_int fport_arg, struct in_addr laddr, u_int lport_arg, int flags);
+	virtual class L4_UDP::udpcb* in_pcblookup(struct in_addr faddr, u_int fport_arg, struct in_addr laddr, u_int lport_arg, int flags) { return nullptr; } // TODO;
 
 	/*!
 		\fn	void L4_UDP::udpcb::udp_template()
@@ -189,7 +192,7 @@ private:
 		~udpcb_logger() { log.close(); }
 	private:
 		typedef std::chrono::duration<double> seconds;
-		udpcb_logger();
+		udpcb_logger() {};
 		udpcb_logger(const udpcb_logger&)
 		{
 			//udpcb_logger();

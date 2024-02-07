@@ -103,19 +103,14 @@ TEST_F(UDPTest, Test01) {
 	//----------------------
 	// The sockaddr_in structure specifies the address family,
 	// IP address, and port for the socket that is being bound.
-	service.sin_family = AF_INET;
-	service.sin_addr.s_addr = inet_server.nic()->ip_addr().s_addr;
-	service.sin_port = htons(8888);
+	sockaddr_in sock_addr;
+	sock_addr.sin_family = AF_INET;
+	sock_addr.sin_addr.s_addr = inet_server.nic()->ip_addr().s_addr;
+	sock_addr.sin_port = htons(8888);
 
 	////----------------------
 	//// Bind the socket.
-	ServerSocket->bind((SOCKADDR*)&service, sizeof(service));
-
-	////----------------------
-	//// Listen for incoming connection requests 
-	//// on the created socket
-	//// 
-	ServerSocket->listen(5);
+	ServerSocket->bind((SOCKADDR*)&sock_addr, sizeof(service));
 
 	////----------------------
 	//// Create a SOCKET for the client
