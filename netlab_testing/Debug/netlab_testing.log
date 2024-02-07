@@ -1,0 +1,2 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\Microsoft.Common.CurrentVersion.targets(2146,5): warning : The referenced project '..\netlab\Solution Items{38B398D3-3824-4CBB-8FC0-9BF67CCC38B8}' does not exist.
+  netlab_testing.vcxproj -> C:\Users\gabri\OneDrive\Desktop\NetlabTAU\netlab\Debug\netlab_testing.exe
