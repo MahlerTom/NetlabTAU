@@ -185,7 +185,8 @@ int L4_UDP_Impl::pr_usrreq(class netlab::L5_socket* so, int req, std::shared_ptr
 			error = EISCONN;
 			break;
 		}
-		so->so_pcb.
+		if (error = udp_attach(*dynamic_cast<socket*>(so)))
+			break;
 		class L4_UDP::udpcb* up = L4_UDP::udpcb::sotoudpcb(dynamic_cast<socket*>(so));
 		break;
 	}
@@ -209,8 +210,9 @@ int L4_UDP_Impl::pr_usrreq(class netlab::L5_socket* so, int req, std::shared_ptr
 		break;
 	}
 		
-	return error;
+	
 	}
+	return error;
 }
 
 void L4_UDP_Impl::drop(class inpcb_impl* inp, const int dropsocket) {
@@ -245,16 +247,22 @@ int L4_UDP_Impl::udp_attach(socket& so)
 	 *	effect these defaults have on performance, especially with higher MTUs (e.g., FOOi and ATM).
 	 */
 	int error;
-	if ((dynamic_cast<socket*>(&so)->so_snd.capacity() == 0 || dynamic_cast<socket*>(&so)->so_rcv.capacity() == 0) &&
-		(error = dynamic_cast<socket*>(&so)->soreserve(10000, 10000)))
+	if ((dynamic_cast<socket*>(&so)->so_snd.capacity() == 0 || dynamic_cast<socket*>(&so)->so_rcv.capacity() == 0) && (error = dynamic_cast<socket*>(&so)->soreserve(10000, 10000)))
 		return (error);
 
 	/*
-	 *	Allocate Internet PCB and TCP control block:
-	 *	inpcb allocates an Internet PCB and tcp_newtcpcb allocates a TCP control
-	 *	block and links it to the PCB.
+	 *	Allocate Internet PCB and UDP control block:
+	 *	inpcb allocates an Internet PCB and here we allocate a UDP control block and links it to the PCB.
 	 */
-	class L4_UDP::udpcb* up(tcp_newtcpcb(*dynamic_cast<socket*>(&so)));
+
+	
+	class L4_UDP::udpcb* up(new L4_UDP::udpcb(so, ucb));
+
+	if (up->udp_inpcb == nullptr)
+		up->udp_inpcb = dynamic_cast<class inpcb_impl*>(up);
+
+	up->udp_inpcb->inp_ip.ip_ttl = L3_impl::IPDEFTTL;
+	up->udp_inpcb->inp_ppcb = dynamic_cast<class inpcb_impl*>(up);
 
 	/*
 	 *	The code with the comment xxx is executed if the allocation in
@@ -267,16 +275,11 @@ int L4_UDP_Impl::udp_attach(socket& so)
 	 *	the SS_NOFDREF flag is saved in the variable nofd when in_pcbdetach is called, and
 	 *	reset before tcp_attach returns.
 	 */
-	if (tp == nullptr) {
+	if (up == nullptr) {
 		const int nofd(so.so_state & socket::SS_NOFDREF);	/* XXX */
 		so.so_state &= ~socket::SS_NOFDREF;	/* don't free the socket yet */
 		so.so_state |= nofd;
 		return (ENOBUFS);
 	}
-
-	/*
-	 *	The TCP connection state is initialized to CLOSED.
-	 */
-	tp->t_state = L4_TCP::tcpcb::TCPS_CLOSED;
 	return (0);
 }

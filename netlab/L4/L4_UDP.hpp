@@ -153,9 +153,8 @@ private:
 
 		\return	null if it fails, else a udpcb* casted version of the #so pcb.
 	*/
-	static inline class L4_UDP::udpcb* sotoudpcb(socket* so) {
-		return dynamic_cast<L4_UDP::udpcb*>(so->so_pcb);
-	} // TODO
+
+	static inline class L4_UDP::udpcb* sotoudpcb(socket* so) { return dynamic_cast<L4_UDP::udpcb*>(so->so_pcb); } // TODO
 
 	/*!
 		\fn virtual udpcb * in_pcblookup(struct in_addr faddr, u_int fport_arg, struct in_addr laddr, u_int lport_arg, int flags)
@@ -183,8 +182,8 @@ private:
 	void udp_template();
 
 
-	struct	pseudo_header* udp_ip_template;	/*!< skeletal packet for transmit */
-	class	inpcb_impl* udp_inpcb;	/*!< back pointer to internet pcb */
+	struct	pseudo_header *udp_ip_template;	/*!< skeletal packet for transmit */
+	class	inpcb_impl *udp_inpcb;	/*!< back pointer to internet pcb */
 
 	class udpcb_logger {
 		friend class L4_UDP::udpcb;

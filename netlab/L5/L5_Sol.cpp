@@ -57,7 +57,11 @@ namespace netlab
 		return (true);
 	}
 
-	inline const L5_socket::sockbuf::capacity_type& L5_socket::sockbuf::capacity() const { return sb_mb.capacity(); }
+	inline const L5_socket::sockbuf::capacity_type& L5_socket::sockbuf::capacity() const
+	{ 
+		auto a = sb_mb.capacity();
+		return a; 
+	}
 
 	inline L5_socket::sockbuf::size_type L5_socket::sockbuf::size() const { return sb_mb.size(); }
 
