@@ -185,6 +185,7 @@ void NIC::lestart(std::shared_ptr<std::vector<byte>> &m, const std::vector<byte>
 		return;
 	}
 
+#define NIC_DEBUG_OUT
 #ifdef NIC_DEBUG_OUT
 	{
 		std::lock_guard<std::mutex> lock(inet.print_mutex);

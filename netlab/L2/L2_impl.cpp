@@ -44,6 +44,7 @@ L2_impl::L2_impl(class inet_os &inet) : L2(inet) { }
 
 void L2_impl::ether_input(std::shared_ptr<std::vector<byte>> &m, std::vector<byte>::iterator &it, struct ether_header *eh) 
 {
+#define NETLAB_L2_DEBUG 
 #ifdef NETLAB_L2_DEBUG
 	{
 		std::lock_guard<std::mutex> lock(inet.print_mutex);

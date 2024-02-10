@@ -75,6 +75,22 @@ void L4_UDP_Impl::pr_input(const struct pr_input_args& args) {
 	std::shared_ptr<std::vector<byte>>& m(args.m);
 	std::vector<byte>::iterator& it(args.it);
 	const int& iphlen(args.iphlen);
+
+	struct L4_UDP::udphdr* udp_header = it + iphlen
+
+	// find control block
+	class inpcb_impl* inp(nullptr);
+	inp = udp_last_inpcb;
+	if ((inp->inp_lport() != ti->ti_dport() ||
+		inp->inp_fport() != ti->ti_sport() ||
+		inp->inp_faddr().s_addr != ti->ti_src().s_addr ||
+		inp->inp_laddr().s_addr != ti->ti_dst().s_addr) &&
+		(inp = tcb.in_pcblookup(ti->ti_src(), ti->ti_sport(), ti->ti_dst(), ti->ti_dport(), inpcb::INPLOOKUP_WILDCARD)))
+		tcp_last_inpcb = inp;
+
+	// call udp output
+	
+
 }
 
 uint16_t ones_complement_add(uint16_t a, uint16_t b) {
@@ -137,7 +153,7 @@ int L4_UDP_Impl::udp_output(L4_UDP::udpcb& up) {
 		// update header
 		udp_header->dst_port_number = so->so_pcb->inp_fport();
 		udp_header->src_port_number = so->so_pcb->inp_lport();
-		udp_header->udp_datagram_length = len + sizeof(udphdr);
+		udp_header->udp_datagram_length = htons((uint16_t)(len + sizeof(udphdr)));
 
 		// Create atrophied IP header with only src and dst IP addresses
 
@@ -145,6 +161,9 @@ int L4_UDP_Impl::udp_output(L4_UDP::udpcb& up) {
 
 		ip_header->ip_src = so->so_pcb->inp_laddr();
 		ip_header->ip_dst = so->so_pcb->inp_faddr();
+		ip_header->ip_len = len + hdrlen;
+		ip_header->ip_ttl = 99;
+		ip_header->ip_p = IPPROTO_UDP;
 
 		// calculate UDP pseudo header and checksum 
 
@@ -156,7 +175,7 @@ int L4_UDP_Impl::udp_output(L4_UDP::udpcb& up) {
 
 		int error(
 			inet.inetsw(protosw::SWPROTO_IP_RAW)->pr_output(*dynamic_cast<const struct pr_output_args*>(
-					&L3_impl::ip_output_args(m, it, up.udp_inpcb->inp_options, &up.udp_inpcb->inp_route, so->so_options & SO_DONTROUTE, nullptr)
+					&L3_impl::ip_output_args(m, it - sizeof(L3::iphdr), up.udp_inpcb->inp_options, &up.udp_inpcb->inp_route, so->so_options & SO_DONTROUTE, nullptr)
 					)));
 		if (error)
 			return out(up, error);
@@ -202,8 +221,9 @@ int L4_UDP_Impl::pr_usrreq(class netlab::L5_socket* so, int req, std::shared_ptr
 
 	case PRU_BIND:
 	{
-		if (error = inp->in_pcbbind(reinterpret_cast<struct sockaddr_in*>(nam), nam_len))
+		if (error = inp->in_pcbbind(nullptr, 0))
 			break;
+		error = inp->in_pcbconnect(reinterpret_cast<sockaddr_in*>(const_cast<struct sockaddr*>(nam)), nam_len);
 		break;
 	}
 
