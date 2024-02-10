@@ -141,8 +141,8 @@ private:
 
 		\return	null if it fails, else a udpcb* casted version of #ip.
 	*/
-	static inline class L4_UDP::udpcb* intoudpcb(class inpcb_impl* ip);
-	static inline class L4_UDP::udpcb* intoudpcb(class inpcb* ip);
+	static inline class L4_UDP::udpcb* intoudpcb(class inpcb_impl* ip) { return dynamic_cast<class L4_UDP::udpcb*>(ip); };
+	static inline class L4_UDP::udpcb* intoudpcb(class inpcb* ip) { return dynamic_cast<class L4_UDP::udpcb*>(ip); } ;
 
 	/*!
 		\fn	static inline udpcb* L4_UDP::udpcb::sotoudpcb(socket *so)
