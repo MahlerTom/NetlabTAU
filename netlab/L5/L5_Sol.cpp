@@ -358,19 +358,20 @@ namespace netlab
 			*		Remark:	The Internet protocols do not use this feature, but it is used by TP4 to send data with a
 			*				connection request, to confirm a COMection request, and to send data with a disconnect request.
 			*/
-			else if ((so_state & SS_ISCONNECTED) == 0) {
-				if (so_proto->pr_flags() & protosw::PR_CONNREQUIRED) {
-					if ((so_state & SS_ISCONFIRMING) == 0)
-						throw std::runtime_error("sosend failed with error ENOTCONN = " + std::to_string(ENOTCONN));
-				}
-				/*
-				*	If a destination address is not specified for a connectionless protocol (e.g., the
-				*	process calls send without establishing a destination with connect),
-				*	EDESTADDREQ is returned.
-				*/
-				else
-					throw std::runtime_error("sosend failed with error EDESTADDRREQ = " + std::to_string(EDESTADDRREQ));
-			}
+			// UNCOMMENT
+			//else if ((so_state & SS_ISCONNECTED) == 0) {
+			//	if (so_proto->pr_flags() & protosw::PR_CONNREQUIRED) {
+			//		if ((so_state & SS_ISCONFIRMING) == 0)
+			//			throw std::runtime_error("sosend failed with error ENOTCONN = " + std::to_string(ENOTCONN));
+			//	}
+			//	/*
+			//	*	If a destination address is not specified for a connectionless protocol (e.g., the
+			//	*	process calls send without establishing a destination with connect),
+			//	*	EDESTADDREQ is returned.
+			//	*/
+			//	else
+			//		throw std::runtime_error("sosend failed with error EDESTADDRREQ = " + std::to_string(EDESTADDRREQ));
+			//}
 
 			/*
 			*	Compute available space:

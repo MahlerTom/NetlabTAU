@@ -54,7 +54,7 @@ L4_UDP_Impl::pseudo_header::pseudo_header(const in_addr& ip_src_addr, const in_a
 /************************************************************************/
 
 L4_UDP_Impl::L4_UDP_Impl(class inet_os &inet)
-	: L4_UDP(inet), ucb(inet), udp_last_inpcb(nullptr) { }
+	: L4_UDP(inet), ucb(inet), udp_last_inpcb(nullptr) {}
 
 L4_UDP_Impl::~L4_UDP_Impl() {
 	if (udp_last_inpcb)
@@ -62,10 +62,13 @@ L4_UDP_Impl::~L4_UDP_Impl() {
 }
 
 void L4_UDP_Impl::pr_init() {
-
+	ucb.inp_next = ucb.inp_prev = &ucb;
 	udp_last_inpcb = nullptr;
 	udp_last_inpcb = dynamic_cast<class inpcb_impl*>(&ucb);
 }
+
+
+
 
 void L4_UDP_Impl::pr_input(const struct pr_input_args& args) {
 	
@@ -171,7 +174,8 @@ int L4_UDP_Impl::pr_usrreq(class netlab::L5_socket* so, int req, std::shared_ptr
 
 	class inpcb* inp(so->so_pcb);
 	class L4_UDP::udpcb* up(nullptr);
-
+	up = L4_UDP::udpcb::intoudpcb(inp);
+	
 	if (inp == nullptr && req != PRU_ATTACH)
 		return (EINVAL);
 
@@ -187,7 +191,7 @@ int L4_UDP_Impl::pr_usrreq(class netlab::L5_socket* so, int req, std::shared_ptr
 		}
 		if (error = udp_attach(*dynamic_cast<socket*>(so)))
 			break;
-		class L4_UDP::udpcb* up = L4_UDP::udpcb::sotoudpcb(dynamic_cast<socket*>(so));
+		up = L4_UDP::udpcb::sotoudpcb(dynamic_cast<socket*>(so));
 		break;
 	}
 
@@ -257,7 +261,7 @@ int L4_UDP_Impl::udp_attach(socket& so)
 
 	
 	class L4_UDP::udpcb* up(new L4_UDP::udpcb(so, ucb));
-
+	//up->seg_next = tp->seg_prev = reinterpret_cast<struct L4_UDP::tcpiphdr*>(up);
 	if (up->udp_inpcb == nullptr)
 		up->udp_inpcb = dynamic_cast<class inpcb_impl*>(up);
 
