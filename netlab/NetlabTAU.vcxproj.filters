@@ -33,7 +33,7 @@
     <ClCompile Include="L4\L4_ICMP_Sol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="L5\L4_TCP_Sol.cpp">
+    <ClCompile Include="L4\L4_TCP_Sol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="L5\L5_Sol.cpp">
